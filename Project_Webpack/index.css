@@ -1,0 +1,11 @@
+body {
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
+  background-color: green;
+}
+
+.img-js {
+  width: 800px;
+  height: auto;
+}
