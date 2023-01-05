@@ -1,0 +1,25 @@
+{
+  "name": "project_rollup",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w"
+  },
+  "keywords": [],
+  "author": "asyakz",
+  "license": "ISC",
+  "dependencies": {
+    "-": "^0.0.1",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "rollup-plugin-styles": "^4.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-image": "^3.0.1",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^2.0.2"
+  }
+}
