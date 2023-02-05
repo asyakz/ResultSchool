@@ -5,48 +5,59 @@ import api from "../api"
 const Users = () => {
 
   const [users, setUsers] = useState(api.users.fetchAll());
-
   const qualitiesClassName = "m-2 badge bg-";
 
   const handleDelete = (userId) => {
     setUsers(prevState => prevState.filter(user => user._id !== userId));
   };
 
-  const getTitleClassName = () => {
-    let classes = "m-2 badge bg-";
-    classes += users.length !== 0 ? "primary" : "danger";
-    return classes;
-  }
+  const renderPharse = (number) => {
 
-  const createTitle = () => {
-    let sumOfUsers = users.length;
-    let manEnding;
-    let partyEnding;
-    let tableTitle = `${sumOfUsers} человек${manEnding} тусан${partyEnding} с тобой сегодня`;
+    let tableTitle;
 
-    if (users.length >= 2 && users.length <= 4) {
-      manEnding = 'а';
-      partyEnding = 'ет';
-      tableTitle = `${sumOfUsers} человек${manEnding} тусан${partyEnding} с тобой сегодня`;
-    } else if (users.length === 0) {
-      tableTitle = "Никто с тобой не тусанет";
-    } else if (users.length === 1) {
-      manEnding = '';
-      partyEnding = 'ет';
-      tableTitle = `${sumOfUsers} человек${manEnding} тусан${partyEnding} с тобой сегодня`;
-    } else {
-      manEnding = '';
-      partyEnding = 'ут';
-      tableTitle = `${sumOfUsers} человек${manEnding} тусан${partyEnding} с тобой сегодня`;
-    }
+      if (number >= 2 && number <= 4) {
+        tableTitle = `${number} человека тусанет с тобой сегодня`;
+      } else if (number === 0) {
+        tableTitle = "Никто с тобой не тусанет";
+      } else if (number === 1) {
+        tableTitle = `${number} человек тусанет с тобой сегодня`;
+      } else {
+        tableTitle = `${number} человек тусанут с тобой сегодня`;
+      }
 
-    return tableTitle;
-  }
+      const getTitleClassName = () => {
+        let classes = "m-2 badge bg-";
+        classes += number !== 0 ? "primary" : "danger";
+        return classes;
+      }
 
-  const renderPharse = () => {
-    if (users.length === 0) return '';
     return (
       <>
+        <h2>
+          <span className={getTitleClassName()}>
+            {tableTitle}
+            </span>
+        </h2>
+      </>
+    )
+  };
+
+  return (
+    <>
+      {renderPharse(users.length)}
+      {users.length > 0 && (
+        <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Качества</th>
+            <th scope="col">Профессия</th>
+            <th scope="col">Встретился, раз</th>
+            <th scope="col">Оценка</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
         {
           users.map((u, i) => (
             <tr key={i} id={i}>
@@ -75,48 +86,9 @@ const Users = () => {
             </tr>
           ))
         }
-      </>
-    )
-  };
-
-  const createTableHat = () => {
-    return (
-      <>
-        <h2>
-          <span className={getTitleClassName()}>
-            {createTitle()}
-            </span>
-        </h2>
-      </>
-    )
-  }
-
-  const createTableBody = () => {
-    return (
-      <>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Имя</th>
-              <th scope="col">Качества</th>
-              <th scope="col">Профессия</th>
-              <th scope="col">Встретился, раз</th>
-              <th scope="col">Оценка</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {renderPharse()}
-          </tbody>
-        </table>
-      </>
-    )
-  }
-
-  return (
-    <>
-      {createTableHat()}
-      {users.length !== 0 ? createTableBody() : ''}
+        </tbody>
+      </table>
+      )}
     </>
   )
 };
