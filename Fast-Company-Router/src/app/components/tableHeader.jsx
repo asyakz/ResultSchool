@@ -20,6 +20,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
         return <i className="bi bi-caret-down-fill"></i>;
       }
     }
+    return null;
   };
   return (
     <thead>
